@@ -10,6 +10,8 @@ import {
 import Input from "./components/input";
 import ListItem from "./components/ListItem";
 import { Fruit, Fruits } from "./constants/data";
+import { v4 as uuidv4 } from "uuid";
+
 export default function App() {
   const [fruits, setFruits] = useState<Fruit[] | null>(null);
   const [inputShown, setInputShown] = useState<boolean>(false);
