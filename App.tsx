@@ -17,15 +17,18 @@ export default function App() {
 
   useEffect(() => {
     setFruits(Fruits);
+    Fruits.sort((a: Fruit, b: Fruit) => {
+      return a.price > b.price ? 1 : b.price > a.price ? -1 : 0;
+    });
   }, []);
-
-  Fruits.sort((a: Fruit, b: Fruit) => {
-    return a.price > b.price ? 1 : b.price > a.price ? -1 : 0;
-  });
 
   const handleSearch = (text: string) => {
     const fruits = Fruits.filter((fruit) => fruit.name.includes(text));
     setFruits(fruits);
+  };
+
+  const handleSubmit = () => {
+    setInputShown(false);
   };
   return (
     <View style={styles.container}>
@@ -48,7 +51,7 @@ export default function App() {
       <View style={{ marginBottom: 20 }}>
         <TouchableOpacity
           onPress={() => {
-            setInputShown(!inputShown);
+            setInputShown(true);
           }}
           activeOpacity={0.8}
           style={{
@@ -68,42 +71,43 @@ export default function App() {
             Add
           </Text>
         </TouchableOpacity>
-
-        <Input
-          icon="add-circle-outline"
-          placeholder="Fruit Name"
-          onChangeText={(e) => {
-            handleSearch(e);
-          }}
-        />
-        <Input
-          icon="add-circle-outline"
-          placeholder="Fruit Price"
-          onChangeText={(e) => {
-            handleSearch(e);
-          }}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            setInputShown(!inputShown);
-          }}
-          activeOpacity={0.8}
-          style={{
-            backgroundColor: "rgba(81,135,200,1)",
-            alignSelf: "center",
-            borderRadius: 5,
-          }}
-        >
-          <Text
+        <View style={{ display: inputShown ? "flex" : "none" }}>
+          <Input
+            icon="add-circle-outline"
+            placeholder="Fruit Name"
+            onChangeText={(e) => {
+              handleSearch(e);
+            }}
+          />
+          <Input
+            icon="add-circle-outline"
+            placeholder="Fruit Price"
+            onChangeText={(e) => {
+              handleSearch(e);
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              setInputShown(!inputShown);
+            }}
+            activeOpacity={0.8}
             style={{
-              color: "#fff",
-              paddingVertical: 7,
-              paddingHorizontal: 20,
+              backgroundColor: "rgba(81,135,200,1)",
+              alignSelf: "center",
+              borderRadius: 5,
             }}
           >
-            Add
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: "#fff",
+                paddingVertical: 7,
+                paddingHorizontal: 20,
+              }}
+            >
+              Add
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
