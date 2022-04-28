@@ -10,10 +10,10 @@ import {
 import Input from "./components/input";
 import ListItem from "./components/ListItem";
 import { Fruit, Fruits } from "./constants/data";
-
 export default function App() {
-  const [fruits, setFruits] = useState<Fruit[]>();
+  const [fruits, setFruits] = useState<Fruit[] | null>(null);
   const [inputShown, setInputShown] = useState<boolean>(false);
+  const [newFruit, setNewFruit] = useState<Fruit | null>(null);
 
   useEffect(() => {
     setFruits(Fruits);
@@ -28,6 +28,10 @@ export default function App() {
   };
 
   const handleSubmit = () => {
+    if (newFruit !== null && fruits !== null) {
+      setFruits([...fruits, newFruit]);
+    }
+
     setInputShown(false);
   };
   return (
@@ -76,19 +80,27 @@ export default function App() {
             icon="add-circle-outline"
             placeholder="Fruit Name"
             onChangeText={(e) => {
-              handleSearch(e);
+              if (newFruit !== null) {
+                setNewFruit({ ...newFruit, name: e });
+              } else {
+                setNewFruit({ name: e, id: Date.now(), price: 0 });
+              }
             }}
           />
           <Input
             icon="add-circle-outline"
             placeholder="Fruit Price"
             onChangeText={(e) => {
-              handleSearch(e);
+              if (newFruit !== null) {
+                setNewFruit({ ...newFruit, price: +e });
+              } else {
+                setNewFruit({ name: "", id: Date.now(), price: +e });
+              }
             }}
           />
           <TouchableOpacity
             onPress={() => {
-              setInputShown(!inputShown);
+              handleSubmit();
             }}
             activeOpacity={0.8}
             style={{
@@ -117,6 +129,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: StatusBar.currentHeight * 2,
+    paddingTop: 40,
   },
 });
