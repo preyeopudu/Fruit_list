@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     borderBottomColor: "#aaaa",
     borderBottomWidth: 1,
     alignItems: "center",
-    marginBottom: 20,
-    paddingBottom: 20,
+    marginBottom: 5,
+    paddingBottom: 10,
   },
 });
 

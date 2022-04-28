@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, StatusBar, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import Input from "./components/input";
 import ListItem from "./components/ListItem";
 import { Fruit, Fruits } from "./constants/data";
 
 export default function App() {
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [fruits, setFruits] = useState<Fruit[]>();
+  const [inputShown, setInputShown] = useState<boolean>(false);
 
   useEffect(() => {
     setFruits(Fruits);
@@ -31,11 +38,73 @@ export default function App() {
       />
 
       <FlatList
+        style={{ marginTop: 20 }}
         data={fruits}
         renderItem={({ item }) => (
           <ListItem price={item.price} name={item.name} id={item.id} />
         )}
       />
+
+      <View style={{ marginBottom: 20 }}>
+        <TouchableOpacity
+          onPress={() => {
+            setInputShown(!inputShown);
+          }}
+          activeOpacity={0.8}
+          style={{
+            backgroundColor: "rgba(81,135,200,1)",
+            alignSelf: "center",
+            display: inputShown ? "none" : "flex",
+            borderRadius: 5,
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              paddingVertical: 7,
+              paddingHorizontal: 20,
+            }}
+          >
+            Add
+          </Text>
+        </TouchableOpacity>
+
+        <Input
+          icon="add-circle-outline"
+          placeholder="Fruit Name"
+          onChangeText={(e) => {
+            handleSearch(e);
+          }}
+        />
+        <Input
+          icon="add-circle-outline"
+          placeholder="Fruit Price"
+          onChangeText={(e) => {
+            handleSearch(e);
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            setInputShown(!inputShown);
+          }}
+          activeOpacity={0.8}
+          style={{
+            backgroundColor: "rgba(81,135,200,1)",
+            alignSelf: "center",
+            borderRadius: 5,
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              paddingVertical: 7,
+              paddingHorizontal: 20,
+            }}
+          >
+            Add
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -44,6 +113,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight * 2,
   },
 });

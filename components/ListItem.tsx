@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
     borderBottomColor: "#aaa",
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.75,
     marginVertical: 5,
   },
 });
