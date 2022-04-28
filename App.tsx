@@ -3,19 +3,20 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar,
   FlatList,
   TouchableOpacity,
 } from "react-native";
 import Input from "./components/input";
 import ListItem from "./components/ListItem";
 import { Fruit, Fruits } from "./constants/data";
-import { v4 as uuidv4 } from "uuid";
+import { stringify, v4 as uuidv4 } from "uuid";
 
 export default function App() {
   const [fruits, setFruits] = useState<Fruit[] | null>(null);
   const [inputShown, setInputShown] = useState<boolean>(false);
   const [newFruit, setNewFruit] = useState<Fruit | null>(null);
+
+  const idValue = Math.random();
 
   useEffect(() => {
     setFruits(Fruits);
@@ -85,7 +86,7 @@ export default function App() {
               if (newFruit !== null) {
                 setNewFruit({ ...newFruit, name: e });
               } else {
-                setNewFruit({ name: e, id: Date.now(), price: 0 });
+                setNewFruit({ name: e, id: idValue, price: 0 });
               }
             }}
           />
@@ -96,7 +97,7 @@ export default function App() {
               if (newFruit !== null) {
                 setNewFruit({ ...newFruit, price: +e });
               } else {
-                setNewFruit({ name: "", id: Date.now(), price: +e });
+                setNewFruit({ name: "", id: idValue, price: +e });
               }
             }}
           />
