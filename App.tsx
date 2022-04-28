@@ -12,6 +12,10 @@ export default function App() {
     setFruits(Fruits);
   }, []);
 
+  Fruits.sort((a: Fruit, b: Fruit) => {
+    return a.price > b.price ? 1 : b.price > a.price ? -1 : 0;
+  });
+
   const handleSearch = (text: string) => {
     const fruits = Fruits.filter((fruit) => fruit.name.includes(text));
     setFruits(fruits);
