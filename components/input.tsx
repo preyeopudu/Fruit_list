@@ -31,10 +31,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderBottomColor: "#aaaa",
     borderBottomWidth: 1,
     alignItems: "center",
+    marginBottom: 20,
   },
 });
 

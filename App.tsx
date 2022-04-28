@@ -1,11 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Text, View, StatusBar, FlatList } from "react-native";
+import Input from "./components/input";
+import ListItem from "./components/ListItem";
+import { Fruits } from "./constants/data";
 
 export default function App() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Input
+        icon="md-search"
+        placeholder="search"
+        onChangeText={(e) => {
+          console.log(e);
+        }}
+      />
+
+      <FlatList
+        data={Fruits}
+        renderItem={({ item }) => (
+          <ListItem price={item.price} name={item.name} id={item.id} />
+        )}
+      />
     </View>
   );
 }
@@ -13,8 +29,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    paddingTop: StatusBar.currentHeight,
   },
 });
