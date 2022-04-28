@@ -10,14 +10,19 @@ export default function App() {
 
   useEffect(() => {
     setFruits(Fruits);
-  });
+  }, []);
+
+  const handleSearch = (text: string) => {
+    const fruits = Fruits.filter((fruit) => fruit.name.includes(text));
+    setFruits(fruits);
+  };
   return (
     <View style={styles.container}>
       <Input
         icon="md-search"
         placeholder="search"
         onChangeText={(e) => {
-          console.log(e);
+          handleSearch(e);
         }}
       />
 
